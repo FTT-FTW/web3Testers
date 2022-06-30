@@ -1,0 +1,50 @@
+body {
+  background-color: rgb(246 248 250 / 1);
+}
+
+.form-head {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.form-head .icon {
+  padding-top: 3px;
+  margin-left: 10px;
+}
+
+.wallet-card {
+  margin-top: 40px;
+}
+
+.wallet-card .Wc-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.wallet-card .Wc-content .tick {
+  margin-right: 10px;
+}
+
+.twitter-card {
+  margin-top: 20px;
+}
+
+.Tw-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.arrow {
+  margin-right: 10px;
+}
+
+.form-email {
+  margin-top: 20px;
+}
+
+.submit-button {
+  margin-top: 30px;
+}

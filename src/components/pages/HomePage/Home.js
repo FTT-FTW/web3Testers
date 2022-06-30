@@ -8,7 +8,7 @@ function Home() {
       <HeroSection {...homeObjOne} />
       <HeroSection {...homeObjTwo} id='step'/>
       <HeroSection {...homeObjThree} />
-      <HeroSection {...homeObjFour} />
+      {/* <HeroSection {...homeObjFour} /> */}
     </>
   )
 }
