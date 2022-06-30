@@ -14,6 +14,8 @@ import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import "./formPage.css";
+import { authentication } from "../../../FirebaseConfig";
+import { TwitterAuthProvider, signInWithPopup } from "firebase/auth";
 
 const FormPage = () => {
   const formik = useFormik({
@@ -43,6 +45,18 @@ const FormPage = () => {
       console.log("Install MetaMask");
     }
   };
+
+  const signInTwitter = () => {
+    const provider = new TwitterAuthProvider();
+    signInWithPopup(authentication, provider)
+      .then((re) => {
+        console.log(re);
+      })
+      .catch(() => {
+        console.log("error");
+      });
+  };
+
   return (
     <Grid>
       <Paper elevation={10} style={paperstyle}>
@@ -62,7 +76,7 @@ const FormPage = () => {
           </CardActionArea>
         </Card>
 
-        <Card className="twitter-card">
+        <Card className="twitter-card" onClick={signInTwitter}>
           <CardActionArea className="Tw-content">
             <CardContent>
               <Typography variant="h7">Connect your twitter</Typography>
