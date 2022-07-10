@@ -1,16 +1,10 @@
 import { Button, Stack } from "@mui/material";
-import React, { useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
 import { CardList } from "./CardList";
 import { Header } from "./Header";
+import { Link } from "react-router-dom";
 
 function Home() {
-  const navigate = useNavigate();
-  const handleOnClick = useCallback(
-    () => navigate("/waitlist", { replace: true }),
-    [navigate]
-  );
-
   return (
     <Stack className="container">
       <Header />
@@ -18,18 +12,19 @@ function Home() {
         <span className="bodyText">
           GET PAID TO TRY <br /> WEB3 PRODUCTS
         </span>
-        <Button
-          variant="contained"
-          sx={{
-            marginTop: "16px",
-            textTransform: "unset",
-            width: 150,
-            backgroundColor: "#349FFF",
-          }}
-          onClick={handleOnClick}
-        >
-          Join waitlist
-        </Button>
+        <Link to="/waitlist">
+          <Button
+            variant="contained"
+            sx={{
+              marginTop: "16px",
+              textTransform: "unset",
+              width: 150,
+              backgroundColor: "#349FFF",
+            }}
+          >
+            Join waitlist
+          </Button>
+        </Link>
       </div>
       <CardList />
     </Stack>

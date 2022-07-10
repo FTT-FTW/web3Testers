@@ -14,7 +14,11 @@ export const CardList = () => {
       <item>
         <Card
           className="cardContainer"
-          sx={{ minHeight: 220, minWidth: 295, backgroundColor: "#d8e9fdcc" }}
+          sx={{
+            minHeight: 220,
+            minWidth: 295,
+            backgroundColor: "rgba(216, 233, 253, 0.8)",
+          }}
           variant="outlined"
         >
           <Typography
@@ -39,7 +43,11 @@ export const CardList = () => {
       <item>
         <Card
           className="cardContainer"
-          sx={{ minHeight: 220, minWidth: 295, backgroundColor: "#d8e9fdcc" }}
+          sx={{
+            minHeight: 220,
+            minWidth: 295,
+            backgroundColor: "rgba(216, 233, 253, 0.8)",
+          }}
           variant="outlined"
         >
           <Typography
@@ -64,7 +72,11 @@ export const CardList = () => {
       <item>
         <Card
           className="cardContainer"
-          sx={{ minHeight: 220, minWidth: 295, backgroundColor: "#d8e9fdcc" }}
+          sx={{
+            minHeight: 220,
+            minWidth: 295,
+            backgroundColor: "rgba(216, 233, 253, 0.8)",
+          }}
           variant="outlined"
         >
           <Typography
@@ -89,7 +101,11 @@ export const CardList = () => {
       <item>
         <Card
           className="cardContainer"
-          sx={{ minHeight: 220, minWidth: 295, backgroundColor: "#d8e9fdcc" }}
+          sx={{
+            minHeight: 220,
+            minWidth: 295,
+            backgroundColor: "rgba(216, 233, 253, 0.8)",
+          }}
           variant="outlined"
         >
           <Typography

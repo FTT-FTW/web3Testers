@@ -43,6 +43,10 @@
 .center {
   text-align: center;
 }
+
+a {
+  text-decoration: none;
+}
 @media screen and (max-width: 900px) {
   .bodyText {
     font-size: 40px;
