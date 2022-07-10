@@ -1,8 +1,4 @@
-body {
-  background-color: rgb(246 248 250 / 1);
-}
-
-.form-head {
+/* .form-head {
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -31,13 +27,13 @@ body {
   margin-top: 20px;
 }
 
-.Tw-content {
+.twitter-card .Tw-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.arrow {
+.twitter-card .Tw-content .arrow {
   margin-right: 10px;
 }
 
@@ -47,4 +43,57 @@ body {
 
 .submit-button {
   margin-top: 30px;
+} */
+
+.container {
+  padding: 16px;
+  overflow: hidden;
+}
+/* .testersTitle {
+  margin-top: 16px;
+} */
+
+.waitlistContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+.card {
+  width: 500px;
+  height: 300px;
+  background-color: rgba(0, 145, 255, 0.11);
+}
+
+.formContent {
+  text-align: center;
+}
+
+.metaIcon {
+  height: 20px;
+  margin-left: 12px;
+}
+
+.flexCont {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+}
+
+.twitterIcon {
+  margin-left: 12px;
+  color: #00acee;
+}
+@media screen and (max-width: 900px) {
+  .card {
+    width: 300px;
+    /* height: 100px; */
+  }
+
+  .stepLabel {
+    display: none;
+  }
 }

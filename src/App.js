@@ -1,19 +1,15 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import Navbar from "./components/pages/Navbar";
 import Home from "./components/pages/HomePage/Home";
-import Footer from "./components/pages/Footer/Footer";
-import FormPage from "./components/pages/FormPage/formPage";
+import { FormPage } from "./components/pages/FormPage/formPage";
 
 function App() {
   return (
     <>
-      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/waitlist" element={<FormPage />} />
       </Routes>
-      <FormPage />
-      <Footer />
     </>
   );
 }
