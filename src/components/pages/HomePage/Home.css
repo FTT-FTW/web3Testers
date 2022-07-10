@@ -3,6 +3,7 @@
   width: 100%;
   height: 100vh;
   justify-content: space-between;
+  background-image: url("/src/assets/Background.jpg");
 }
 
 .headerContainer {
@@ -56,5 +57,9 @@ a {
   .contentBody {
     margin-top: 20%;
     margin-bottom: 10%;
+  }
+
+  .mobileCardPadding {
+    margin-bottom: 20px;
   }
 }

@@ -100,7 +100,7 @@ export const CardList = () => {
       </item>
       <item>
         <Card
-          className="cardContainer"
+          className="cardContainer mobileCardPadding"
           sx={{
             minHeight: 220,
             minWidth: 295,
