@@ -1,6 +1,10 @@
 import { Stack, Card, CardContent, Box, Typography } from "@mui/material";
 import "./Home.css";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { ReactComponent as MetaMask } from "../../../assets/Metamask.svg";
+import { ReactComponent as Discord } from "../../../assets/Discord.svg";
+import { ReactComponent as Circle } from "../../../assets/Circle.svg";
+import { ReactComponent as Dollar } from "../../../assets/Dollar.svg";
 
 export const CardList = () => {
   const matches = useMediaQuery("(min-width:900px)");
@@ -32,11 +36,9 @@ export const CardList = () => {
           </Typography>
           <div className="center">
             <Typography fontWeight={400} fontSize={18} color="#0A6FBC">
-              Join platfom by connecting
+              Connect web3 wallet
             </Typography>
-            <Typography fontWeight={400} fontSize={18} color="#0A6FBC">
-              your wallet
-            </Typography>
+            <MetaMask className="metaMask" />
           </div>
         </Card>
       </item>
@@ -61,11 +63,9 @@ export const CardList = () => {
           </Typography>
           <div className="center">
             <Typography fontWeight={400} fontSize={18} color="#0A6FBC">
-              We allot Platforms to test by
+              Join the community
             </Typography>
-            <Typography fontWeight={400} fontSize={18} color="#0A6FBC">
-              scanning your wallet history
-            </Typography>
+            <Discord className="metaMask" />
           </div>
         </Card>
       </item>
@@ -90,11 +90,9 @@ export const CardList = () => {
           </Typography>
           <div className="center">
             <Typography fontWeight={400} fontSize={18} color="#0A6FBC">
-              Test the platform and submit your
+              Test the platform
             </Typography>
-            <Typography fontWeight={400} fontSize={18} color="#0A6FBC">
-              testing reviews
-            </Typography>
+            <Circle className="metaMask" />
           </div>
         </Card>
       </item>
@@ -119,11 +117,9 @@ export const CardList = () => {
           </Typography>
           <div className="center">
             <Typography fontWeight={400} fontSize={18} color="#0A6FBC">
-              Get your reward token in your
+              Get paid in crypto
             </Typography>
-            <Typography fontWeight={400} fontSize={18} color="#0A6FBC">
-              wallet
-            </Typography>
+            <Dollar className="metaMask" />
           </div>
         </Card>
       </item>

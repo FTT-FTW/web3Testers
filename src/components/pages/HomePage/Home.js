@@ -10,7 +10,7 @@ function Home() {
       <Header />
       <div className="contentBody">
         <span className="bodyText">
-          GET PAID TO TRY <br /> WEB3 PRODUCTS
+          GET PAID TO TEST <br /> WEB3 PRODUCTS
         </span>
         <Link to="/waitlist">
           <Button

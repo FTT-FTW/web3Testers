@@ -48,9 +48,15 @@
 a {
   text-decoration: none;
 }
+
+.metaMask {
+  height: 30px;
+  margin-top: 8px;
+}
+
 @media screen and (max-width: 900px) {
   .bodyText {
-    font-size: 40px;
+    font-size: 38px;
     font-weight: 700;
     line-height: 60px;
   }
