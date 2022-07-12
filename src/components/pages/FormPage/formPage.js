@@ -8,6 +8,9 @@ import {
   StepLabel,
   Step,
   Stack,
+  Modal,
+  Typography,
+  Box,
 } from "@mui/material";
 import "./formPage.css";
 import { FormContent } from "./formContent";
@@ -17,7 +20,28 @@ import { Link } from "react-router-dom";
 
 export const FormPage = () => {
   const [activeStep, setActiveStep] = useState(0);
+  const [open, setOpen] = React.useState(false);
+  const [butttonState, setButtonState] = useState(true);
+  const handleClose = () => setOpen(false);
+  function throwError() {
+    setOpen(true);
+  }
 
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "#302f2f",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+
+  const metaConnect = () => {
+    // throwError();
+  };
   function renderContent() {
     switch (activeStep) {
       case 0:
@@ -30,6 +54,7 @@ export const FormPage = () => {
                 color: "black",
                 backgroundColor: "white",
               }}
+              onClick={metaConnect}
             >
               <div className="flexCont">
                 Connect Wallet
@@ -85,6 +110,23 @@ export const FormPage = () => {
         <span className="testersTitle"> web3testers </span>
       </Link>
 
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography
+            sx={{ color: "white" }}
+            id="modal-modal-title"
+            variant="h6"
+            component="h2"
+          >
+            Something Went Wrong...
+          </Typography>
+        </Box>
+      </Modal>
       <div className="waitlistContainer">
         <Card
           sx={{ backgroundColor: "rgba(0, 145, 255, 0.11)" }}
@@ -117,6 +159,7 @@ export const FormPage = () => {
                   sx={{ width: "30%" }}
                   className="emailBox"
                   onClick={nextStep}
+                  disabled={butttonState}
                 >
                   Next
                 </Button>
