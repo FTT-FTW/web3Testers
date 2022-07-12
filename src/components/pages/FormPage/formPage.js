@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useFormik } from "formik";
 import {
   Card,
@@ -14,10 +14,13 @@ import DoneOutlineIcon from "@mui/icons-material/DoneOutline";
 import FactCheckIcon from "@mui/icons-material/FactCheck";
 import DoubleArrowIcon from "@mui/icons-material/DoubleArrow";
 import "./formPage.css";
-import { authentication } from "../../../FirebaseConfig";
-import { TwitterAuthProvider, signInWithPopup } from "firebase/auth";
+import { getAuth, TwitterAuthProvider, signInWithPopup } from "firebase/auth";
+import { BaseContext } from "../../../BaseContext";
 
 const FormPage = () => {
+
+  const firebase = useContext(BaseContext);
+
   const formik = useFormik({
     initialValues: {},
     onSubmit: () => {},
@@ -46,16 +49,21 @@ const FormPage = () => {
     }
   };
 
-  const signInTwitter = () => {
-    const provider = new TwitterAuthProvider();
-    signInWithPopup(authentication, provider)
-      .then((re) => {
-        console.log(re);
-      })
-      .catch(() => {
-        console.log("error");
-      });
-  };
+  // const signInTwitter = () => {
+  //   const provider = new TwitterAuthProvider();
+  //   const authentication = getAuth();
+  //   signInWithPopup(authentication, provider)
+  //     .then((re) => {
+  //       console.log(re);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
+
+  async function signInTwitter () {
+    await firebase.signUserIn();
+  }
 
   return (
     <Grid>
