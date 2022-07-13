@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Card,
   CardContent,
-  TextField,
   Button,
   Stepper,
   StepLabel,
@@ -17,16 +16,19 @@ import { FormContent } from "./formContent";
 import { ReactComponent as MetaMask } from "../../../assets/Metamask.svg";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { Link } from "react-router-dom";
+import { BaseContext } from "../../../BaseContextProvider";
+import InputEmail from "./InputEmail";
 
 export const FormPage = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [open, setOpen] = React.useState(false);
   const [butttonState, setButtonState] = useState(true);
-  const handleClose = () => setOpen(false);
-  function throwError() {
-    setOpen(true);
-  }
+  const [errorMsg, setErrorMsg] = useState("Something went wrong...");
+  const [metaAddress, setMetaAddress] = useState("");
+  const [email, setEmail] = useState("");
+  const [isValidEmail, setValidEmail] = useState(false);
 
+  const firebase = useContext(BaseContext);
   const style = {
     position: "absolute",
     top: "50%",
@@ -39,9 +41,45 @@ export const FormPage = () => {
     p: 4,
   };
 
+  useEffect(() => {
+    if (isValidEmail) {
+      setButtonState(false);
+    } else setButtonState(true);
+  }, [isValidEmail]);
+
+  const handleClose = () => setOpen(false);
+  function throwError() {
+    setOpen(true);
+  }
+
   const metaConnect = () => {
-    // throwError();
+    if (window.ethereum && window.ethereum.isMetaMask) {
+      window.ethereum
+        .request({ method: "eth_requestAccounts" })
+        .then((result) => {
+          setMetaAddress(result.at(0));
+          setButtonState(false);
+        })
+        .catch(() => {
+          throwError();
+        });
+    } else {
+      setErrorMsg("Install MetaMask");
+      throwError();
+    }
   };
+
+  function signInTwitter() {
+    setButtonState(false);
+
+    // await firebase.signUserIn();
+  }
+
+  const handleEmailChange = (value, isValid) => {
+    setEmail(value);
+    setValidEmail(isValid);
+  };
+
   function renderContent() {
     switch (activeStep) {
       case 0:
@@ -73,6 +111,7 @@ export const FormPage = () => {
                 color: "black",
                 backgroundColor: "white",
               }}
+              onClick={signInTwitter}
             >
               <div className="flexCont">
                 Connect Twitter
@@ -84,24 +123,24 @@ export const FormPage = () => {
       case 2:
         return (
           <FormContent>
-            <TextField
-              sx={{
-                backgroundColor: "white",
-                width: "70%",
-              }}
-              id="outlined-basic"
-              label="Email"
-              variant="outlined"
-              type="email"
-            />
+            <InputEmail handleChange={handleEmailChange} />
           </FormContent>
         );
+      case 3:
+        return (
+          <Typography variant="h5" sx={{ textAlign: "center" }}>
+            Response recorded !!
+          </Typography>
+        );
+      default:
+        return <></>;
     }
   }
 
   const nextStep = () => {
-    if (activeStep == 2) return;
+    if (activeStep === 3) return;
     setActiveStep(activeStep + 1);
+    setButtonState(true);
   };
 
   return (
@@ -123,7 +162,7 @@ export const FormPage = () => {
             variant="h6"
             component="h2"
           >
-            Something Went Wrong...
+            {errorMsg}
           </Typography>
         </Box>
       </Modal>
