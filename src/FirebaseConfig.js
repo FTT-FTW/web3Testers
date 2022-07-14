@@ -2,7 +2,9 @@ import app from "firebase/compat/app";
 import "firebase/compat/auth";
 import firebase from 'firebase/app';
 import {getFirestore, addDoc, collection, Firestore} from "firebase/firestore"
+import { query, where, getDocs } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
+import "firebase/firestore"
 
 
 const firebaseConfig = {
@@ -32,14 +34,10 @@ class Firebase{
     }
 
     saveDataIn = async (input) => {
-      const db = getFirestore(app);
+      const db = getFirestore(this.app);
       const collectionReference = collection(db, "twitter");
-      await addDoc(collectionReference, {username: input});
-      // const db = getFirestore(app);
-      // const collectionReference = collection(db, "twitter"); 
-      // collectionReference.orderByChild
-      // console.log('inside saveData function');  
-      // db.ref("twitter")
+      // console.log('inside saveData function');
+      // db.collection("twitter")
       //       .orderByChild("item")
       //       .equalTo(input)
       //       .on('value', function (snapshot) {
@@ -50,6 +48,18 @@ class Firebase{
       //               console.log('User is registered!');
       //           }
       //       })
+      try {
+        const q = query(collectionReference, where("username", "==", input));
+        const querySnapshot = await getDocs(q);
+        if(querySnapshot.empty) {
+          await addDoc(collection(db, 'twitter'), {
+            username: input,
+            completed: false
+          })
+        }
+      } catch (err) {
+        alert(err)
+      }
     }
 }
 
