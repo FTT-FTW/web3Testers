@@ -7,7 +7,9 @@ import {
   collection,
   Firestore,
 } from "firebase/firestore";
+import { query, where, getDocs } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
+import "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAOfnFWVL0OMGUuTPzEBHJpqQyriXSEwRo",
@@ -25,34 +27,37 @@ class Firebase {
 
   signUserIn = async () => {
     const provider = new app.auth.TwitterAuthProvider();
+    let twitterObj;
     app
       .auth()
       .signInWithPopup(provider)
       .then((user) => {
-        this.saveDataIn(user.user.displayName);
-        console.log(user.user.displayName);
+        twitterObj = user.user.displayName;
+        this.saveDataIn(twitterObj);
+        console.log(twitterObj);
       });
+
+    return twitterObj;
   };
 
-  saveDataIn = async (input) => {
-    const db = getFirestore(app);
-    const collectionReference = collection(db, "twitter");
-    await addDoc(collectionReference, { username: input });
-    // const db = getFirestore(app);
-    // const collectionReference = collection(db, "twitter");
-    // collectionReference.orderByChild
-    // console.log('inside saveData function');
-    // db.ref("twitter")
-    //       .orderByChild("item")
-    //       .equalTo(input)
-    //       .on('value', function (snapshot) {
-    //           if (snapshot.val() === null) {
-    //             console.log('data saved successfully');
-    //             addDoc(collectionReference, {username: input})
-    //           }else{
-    //               console.log('User is registered!');
-    //           }
-    //       })
+  saveDataIn = async (twitter, metaAddress, email) => {
+    const db = getFirestore(this.app);
+    const collectionReference = collection(db, "Users");
+    try {
+      const q = query(collectionReference, where("username", "==", twitter));
+      const querySnapshot = await getDocs(q);
+      if (querySnapshot.empty) {
+        await addDoc(collection(db, "Users"), {
+          username: twitter,
+          metaAddress: metaAddress,
+          email: email,
+        });
+
+        console.log("function save");
+      }
+    } catch (err) {
+      alert(err);
+    }
   };
 }
 

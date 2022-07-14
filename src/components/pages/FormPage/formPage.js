@@ -26,6 +26,7 @@ export const FormPage = () => {
   const [errorMsg, setErrorMsg] = useState("Something went wrong...");
   const [metaAddress, setMetaAddress] = useState("");
   const [email, setEmail] = useState("");
+  const [twitter, setTwitter] = useState("");
   const [isValidEmail, setValidEmail] = useState(false);
 
   const firebase = useContext(BaseContext);
@@ -71,8 +72,8 @@ export const FormPage = () => {
 
   function signInTwitter() {
     setButtonState(false);
-
-    // await firebase.signUserIn();
+    const twitterUser = firebase.signUserIn();
+    setTwitter(twitterUser);
   }
 
   const handleEmailChange = (value, isValid) => {
@@ -138,7 +139,10 @@ export const FormPage = () => {
   }
 
   const nextStep = () => {
-    if (activeStep === 3) return;
+    if (activeStep === 3) {
+      firebase.saveDataIn(twitter, metaAddress, email);
+      return;
+    }
     setActiveStep(activeStep + 1);
     setButtonState(true);
   };
