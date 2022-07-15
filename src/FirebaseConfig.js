@@ -10,6 +10,7 @@ import {
 import { query, where, getDocs } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 import "firebase/firestore";
+import  Data   from "../src/Data.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAOfnFWVL0OMGUuTPzEBHJpqQyriXSEwRo",
@@ -19,7 +20,7 @@ const firebaseConfig = {
   messagingSenderId: "802775644406",
   appId: "1:802775644406:web:1e9c032900b0c48971d4d7",
 };
-
+let twitterUserName;
 class Firebase {
   constructor() {
     this.app = app.initializeApp(firebaseConfig);
@@ -27,31 +28,28 @@ class Firebase {
 
   signUserIn = async () => {
     const provider = new app.auth.TwitterAuthProvider();
-    let twitterObj;
     app
       .auth()
       .signInWithPopup(provider)
       .then((user) => {
-        twitterObj = user.user.displayName;
-        this.saveDataIn(twitterObj);
-        console.log(twitterObj);
+        twitterUserName = user.user.displayName;
+        console.log(twitterUserName);
       });
-
-    return twitterObj;
   };
 
   saveDataIn = async (twitter, metaAddress, email) => {
     const db = getFirestore(this.app);
     const collectionReference = collection(db, "Users");
     try {
-      const q = query(collectionReference, where("username", "==", twitter));
+      const data = new Data();
+      data.username = twitterUserName;
+      data.metaAddress = metaAddress;
+      data.email = email;
+
+      const q = query(collectionReference, where("username", "==", "null"));
       const querySnapshot = await getDocs(q);
       if (querySnapshot.empty) {
-        await addDoc(collection(db, "Users"), {
-          username: twitter,
-          metaAddress: metaAddress,
-          email: email,
-        });
+        await addDoc(collection(db, "Users"), Object.assign({}, data));
 
         console.log("function save");
       }

@@ -79,6 +79,7 @@ export const FormPage = () => {
   const handleEmailChange = (value, isValid) => {
     setEmail(value);
     setValidEmail(isValid);
+    // firebase.saveDataIn(twitter, metaAddress, email);
   };
 
   function renderContent() {
@@ -140,6 +141,7 @@ export const FormPage = () => {
 
   const nextStep = () => {
     if (activeStep === 3) {
+      console.log("You are inside this step");
       firebase.saveDataIn(twitter, metaAddress, email);
       return;
     }
