@@ -10,7 +10,7 @@ import {
 import { query, where, getDocs } from "firebase/firestore";
 import { v4 as uuid } from "uuid";
 import "firebase/firestore";
-import  Data   from "../src/Data.js";
+import Data from "../src/Data.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAOfnFWVL0OMGUuTPzEBHJpqQyriXSEwRo",
@@ -34,6 +34,7 @@ class Firebase {
       .then((user) => {
         twitterUserName = user.user.displayName;
         console.log(twitterUserName);
+        alert("Twitter Connect Successful");
       });
   };
 
@@ -46,7 +47,10 @@ class Firebase {
       data.metaAddress = metaAddress;
       data.email = email;
 
-      const q = query(collectionReference, where("username", "==", data.username));
+      const q = query(
+        collectionReference,
+        where("username", "==", data.username)
+      );
       const querySnapshot = await getDocs(q);
       if (querySnapshot.empty) {
         await addDoc(collection(db, "Users"), Object.assign({}, data));

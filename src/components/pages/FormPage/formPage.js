@@ -55,20 +55,21 @@ export const FormPage = () => {
 
   const metaConnect = () => {
     setButtonState(false);
-    // if (window.ethereum && window.ethereum.isMetaMask) {
-    //   window.ethereum
-    //     .request({ method: "eth_requestAccounts" })
-    //     .then((result) => {
-    //       setMetaAddress(result.at(0));
-    //       setButtonState(false);
-    //     })
-    //     .catch(() => {
-    //       throwError();
-    //     });
-    // } else {
-    //   setErrorMsg("Install MetaMask");
-    //   throwError();
-    // }
+    if (window.ethereum && window.ethereum.isMetaMask) {
+      window.ethereum
+        .request({ method: "eth_requestAccounts" })
+        .then((result) => {
+          setMetaAddress(result.at(0));
+          setButtonState(false);
+          alert("MetaMask Connect Successful");
+        })
+        .catch(() => {
+          throwError();
+        });
+    } else {
+      setErrorMsg("Install MetaMask");
+      throwError();
+    }
   };
 
   function signInTwitter() {

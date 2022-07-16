@@ -1,4 +1,4 @@
-export const sucessDialog = () => {
+export const SucessDialog = () => {
   return (
     <>
       <Alert variant="outlined" severity="success">
