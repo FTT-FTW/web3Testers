@@ -1,4 +1,4 @@
-import { Stack, Card, CardContent, Box, Typography } from "@mui/material";
+import { Stack, Card, Typography } from "@mui/material";
 import "./Home.css";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ReactComponent as MetaMask } from "../../../assets/Metamask.svg";
@@ -15,7 +15,7 @@ export const CardList = () => {
       direction={matches ? "row" : "column"}
       spacing={2}
     >
-      <item>
+      <div>
         <Card
           className="cardContainer"
           sx={{
@@ -41,8 +41,8 @@ export const CardList = () => {
             <MetaMask className="metaMask" />
           </div>
         </Card>
-      </item>
-      <item>
+      </div>
+      <div>
         <Card
           className="cardContainer"
           sx={{
@@ -68,8 +68,8 @@ export const CardList = () => {
             <Discord className="metaMask" />
           </div>
         </Card>
-      </item>
-      <item>
+      </div>
+      <div>
         <Card
           className="cardContainer"
           sx={{
@@ -95,8 +95,8 @@ export const CardList = () => {
             <Circle className="metaMask" />
           </div>
         </Card>
-      </item>
-      <item>
+      </div>
+      <div>
         <Card
           className="cardContainer mobileCardPadding"
           sx={{
@@ -122,7 +122,7 @@ export const CardList = () => {
             <Dollar className="metaMask" />
           </div>
         </Card>
-      </item>
+      </div>
     </Stack>
   );
 };

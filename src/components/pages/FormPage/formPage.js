@@ -59,12 +59,12 @@ export const FormPage = () => {
       window.ethereum
         .request({ method: "eth_requestAccounts" })
         .then((result) => {
-          setMetaAddress(result.at(0));
+          setMetaAddress(result[0]);
           setButtonState(false);
           alert("MetaMask Connect Successful");
         })
-        .catch(() => {
-          throwError();
+        .catch((err) => {
+          alert(err);
         });
     } else {
       setErrorMsg("Install MetaMask");
@@ -81,7 +81,6 @@ export const FormPage = () => {
   const handleEmailChange = (value, isValid) => {
     setEmail(value);
     setValidEmail(isValid);
-    // firebase.saveDataIn(twitter, metaAddress, email);
   };
 
   function renderContent() {
@@ -145,6 +144,8 @@ export const FormPage = () => {
     if (activeStep === 2) {
       console.log("You are inside this step");
       firebase.saveDataIn(twitter, metaAddress, email);
+    }
+    if (activeStep === 3) {
       return;
     }
     setActiveStep(activeStep + 1);

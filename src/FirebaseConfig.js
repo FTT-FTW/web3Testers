@@ -4,11 +4,9 @@ import firebase from "firebase/app";
 import {
   getFirestore,
   addDoc,
-  collection,
-  Firestore,
+  collection
 } from "firebase/firestore";
 import { query, where, getDocs } from "firebase/firestore";
-import { v4 as uuid } from "uuid";
 import "firebase/firestore";
 import Data from "../src/Data.js";
 
@@ -58,7 +56,7 @@ class Firebase {
         console.log("function save");
       }
     } catch (err) {
-      alert(err);
+      alert("Not saved successfuly please contact admins !");
     }
   };
 }
