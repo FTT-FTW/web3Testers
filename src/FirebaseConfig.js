@@ -20,7 +20,7 @@ class Firebase {
     this.app = app.initializeApp(firebaseConfig);
   }
 
-  signUserIn = async () => {
+  signUserIn = async (twitterCallback) => {
     const provider = new app.auth.TwitterAuthProvider();
     app
       .auth()
@@ -28,10 +28,11 @@ class Firebase {
       .then((user) => {
         twitterUserName = user.user.displayName;
         alert("Twitter Connect Successful");
+        twitterCallback();
       });
   };
 
-  saveDataIn = async (twitter, metaAddress, email) => {
+  saveDataIn = async (metaAddress, email) => {
     const db = getFirestore(this.app);
     const collectionReference = collection(db, "Users");
     try {
