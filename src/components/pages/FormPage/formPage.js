@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import "./formPage.css";
 import { FormContent } from "./formContent";
-import {ReactComponent as Logo} from "../../../assets/Logo.svg"
+import { ReactComponent as Logo } from "../../../assets/Logo.svg";
 import { ReactComponent as MetaMask } from "../../../assets/Metamask.svg";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import DoneOutlined from "@mui/icons-material/DoneOutlined";
@@ -78,8 +78,8 @@ export const FormPage = () => {
     setTwitter(true);
     setButtonState(false);
   };
+
   function signInTwitter() {
-    setButtonState(false);
     firebase.signUserIn(twitterCallback);
   }
 
@@ -201,7 +201,7 @@ export const FormPage = () => {
   return (
     <div className="container">
       <Link to="/">
-        <Logo className="logoIcon"/>
+        <Logo className="logoIcon" />
       </Link>
 
       <Modal
