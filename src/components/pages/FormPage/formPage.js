@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import "./formPage.css";
 import { FormContent } from "./formContent";
+import {ReactComponent as Logo} from "../../../assets/Logo.svg"
 import { ReactComponent as MetaMask } from "../../../assets/Metamask.svg";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { Link } from "react-router-dom";
@@ -161,7 +162,7 @@ export const FormPage = () => {
   return (
     <div className="container">
       <Link to="/">
-        <span className="testersTitle"> web3testers </span>
+        <Logo className="logoIcon"/>
       </Link>
 
       <Modal
