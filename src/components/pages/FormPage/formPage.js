@@ -149,7 +149,6 @@ export const FormPage = () => {
 
   const nextStep = () => {
     if (activeStep === 2) {
-      console.log("You are inside this step");
       firebase.saveDataIn(twitter, metaAddress, email);
     }
     if (activeStep === 3) {

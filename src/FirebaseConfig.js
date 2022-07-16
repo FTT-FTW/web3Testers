@@ -1,11 +1,7 @@
 import app from "firebase/compat/app";
 import "firebase/compat/auth";
 import firebase from "firebase/app";
-import {
-  getFirestore,
-  addDoc,
-  collection
-} from "firebase/firestore";
+import { getFirestore, addDoc, collection } from "firebase/firestore";
 import { query, where, getDocs } from "firebase/firestore";
 import "firebase/firestore";
 import Data from "../src/Data.js";
@@ -31,7 +27,6 @@ class Firebase {
       .signInWithPopup(provider)
       .then((user) => {
         twitterUserName = user.user.displayName;
-        console.log(twitterUserName);
         alert("Twitter Connect Successful");
       });
   };
@@ -52,8 +47,6 @@ class Firebase {
       const querySnapshot = await getDocs(q);
       if (querySnapshot.empty) {
         await addDoc(collection(db, "Users"), Object.assign({}, data));
-
-        console.log("function save");
       }
     } catch (err) {
       alert("Not saved successfuly please contact admins !");
