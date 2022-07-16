@@ -78,6 +78,7 @@ export const FormPage = () => {
     setButtonState(false);
   };
   function signInTwitter() {
+    setButtonState(false);
     firebase.signUserIn(twitterCallback);
   }
 
@@ -163,12 +164,6 @@ export const FormPage = () => {
         return (
           <Typography variant="h5" sx={{ textAlign: "center" }}>
             Response recorded !!
-            <a href={`https://twitter.com/intent/tweet?text=${content}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            >
-              Tweet
-            </a>
           </Typography>
         );
       default:
@@ -187,6 +182,21 @@ export const FormPage = () => {
     setButtonState(true);
   };
 
+  function tweetButton() {
+    return (
+      <Button
+        variant="contained"
+        sx={{ width: "30%" }}
+        className="emailBox"
+        onClick={nextStep}
+        href={`https://twitter.com/intent/tweet?text=${content}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Let's Tweet
+      </Button>
+    );
+  }
   return (
     <div className="container">
       <Link to="/">
@@ -237,15 +247,19 @@ export const FormPage = () => {
               </Stepper>
               {renderContent()}
               <div className="formContent">
-                <Button
-                  variant="contained"
-                  sx={{ width: "30%" }}
-                  className="emailBox"
-                  onClick={nextStep}
-                  disabled={butttonState}
-                >
-                  Next
-                </Button>
+                {activeStep === 3 ? (
+                  tweetButton()
+                ) : (
+                  <Button
+                    variant="contained"
+                    sx={{ width: "30%" }}
+                    className="emailBox"
+                    onClick={nextStep}
+                    disabled={butttonState}
+                  >
+                    {activeStep === 2 ? "Submit" : "Next"}
+                  </Button>
+                )}
               </div>
             </Stack>
           </CardContent>
