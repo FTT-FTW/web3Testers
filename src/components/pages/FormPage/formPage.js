@@ -16,6 +16,7 @@ import { FormContent } from "./formContent";
 import {ReactComponent as Logo} from "../../../assets/Logo.svg"
 import { ReactComponent as MetaMask } from "../../../assets/Metamask.svg";
 import TwitterIcon from "@mui/icons-material/Twitter";
+import DoneOutlined from "@mui/icons-material/DoneOutlined";
 import { Link } from "react-router-dom";
 import { BaseContext } from "../../../BaseContextProvider";
 import InputEmail from "./InputEmail";
@@ -25,9 +26,9 @@ export const FormPage = () => {
   const [open, setOpen] = React.useState(false);
   const [butttonState, setButtonState] = useState(true);
   const [errorMsg, setErrorMsg] = useState("Something went wrong...");
-  const [metaAddress, setMetaAddress] = useState("");
-  const [email, setEmail] = useState("");
-  const [twitter, setTwitter] = useState("");
+  const [metaAddress, setMetaAddress] = useState(null);
+  const [email, setEmail] = useState(null);
+  const [twitter, setTwitter] = useState(false);
   const [isValidEmail, setValidEmail] = useState(false);
 
   const content = "Hello there Looking cool !";
@@ -56,7 +57,6 @@ export const FormPage = () => {
   }
 
   const metaConnect = () => {
-    setButtonState(false);
     if (window.ethereum && window.ethereum.isMetaMask) {
       window.ethereum
         .request({ method: "eth_requestAccounts" })
@@ -74,10 +74,12 @@ export const FormPage = () => {
     }
   };
 
-  function signInTwitter() {
+  const twitterCallback = () => {
+    setTwitter(true);
     setButtonState(false);
-    const twitterUser = firebase.signUserIn();
-    setTwitter(twitterUser);
+  };
+  function signInTwitter() {
+    firebase.signUserIn(twitterCallback);
   }
 
   const handleEmailChange = (value, isValid) => {
@@ -85,44 +87,71 @@ export const FormPage = () => {
     setValidEmail(isValid);
   };
 
+  function renderConnected() {
+    return (
+      <Button
+        variant="outlined"
+        sx={{
+          textTransform: "unset",
+          color: "black",
+          backgroundColor: "white",
+        }}
+        disabled
+      >
+        <div className="flexCont">
+          Connected
+          <DoneOutlined className="metaIcon" />
+        </div>
+      </Button>
+    );
+  }
+
   function renderContent() {
     switch (activeStep) {
       case 0:
         return (
           <FormContent>
-            <Button
-              variant="outlined"
-              sx={{
-                textTransform: "unset",
-                color: "black",
-                backgroundColor: "white",
-              }}
-              onClick={metaConnect}
-            >
-              <div className="flexCont">
-                Connect Wallet
-                <MetaMask className="metaIcon" />
-              </div>
-            </Button>
+            {metaAddress ? (
+              renderConnected()
+            ) : (
+              <Button
+                variant="outlined"
+                sx={{
+                  textTransform: "unset",
+                  color: "black",
+                  backgroundColor: "white",
+                }}
+                onClick={metaConnect}
+              >
+                <div className="flexCont">
+                  Connect Wallet
+                  <MetaMask className="metaIcon" />
+                </div>
+              </Button>
+            )}
           </FormContent>
         );
       case 1:
         return (
           <FormContent>
-            <Button
-              variant="outlined"
-              sx={{
-                textTransform: "unset",
-                color: "black",
-                backgroundColor: "white",
-              }}
-              onClick={signInTwitter}
-            >
-              <div className="flexCont">
-                Connect Twitter
-                <TwitterIcon className="twitterIcon" />
-              </div>
-            </Button>
+            {twitter ? (
+              renderConnected()
+            ) : (
+              <Button
+                variant="outlined"
+                sx={{
+                  textTransform: "unset",
+                  color: "black",
+                  backgroundColor: "white",
+                }}
+                onClick={signInTwitter}
+              >
+                <div className="flexCont">
+                  Connect Twitter
+                  <TwitterIcon className="twitterIcon" />
+                </div>
+              </Button>
+            )}
           </FormContent>
         );
       case 2:
@@ -150,7 +179,7 @@ export const FormPage = () => {
 
   const nextStep = () => {
     if (activeStep === 2) {
-      firebase.saveDataIn(twitter, metaAddress, email);
+      firebase.saveDataIn(metaAddress, email);
     }
     if (activeStep === 3) {
       return;
