@@ -29,6 +29,7 @@ export const FormPage = () => {
   const [twitter, setTwitter] = useState("");
   const [isValidEmail, setValidEmail] = useState(false);
 
+  const content = "Hello there Looking cool !";
   const firebase = useContext(BaseContext);
   const style = {
     position: "absolute",
@@ -133,6 +134,12 @@ export const FormPage = () => {
         return (
           <Typography variant="h5" sx={{ textAlign: "center" }}>
             Response recorded !!
+            <a href={`https://twitter.com/intent/tweet?text=${content}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            >
+              Tweet
+            </a>
           </Typography>
         );
       default:
