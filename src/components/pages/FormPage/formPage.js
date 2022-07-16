@@ -54,20 +54,21 @@ export const FormPage = () => {
   }
 
   const metaConnect = () => {
-    if (window.ethereum && window.ethereum.isMetaMask) {
-      window.ethereum
-        .request({ method: "eth_requestAccounts" })
-        .then((result) => {
-          setMetaAddress(result.at(0));
-          setButtonState(false);
-        })
-        .catch(() => {
-          throwError();
-        });
-    } else {
-      setErrorMsg("Install MetaMask");
-      throwError();
-    }
+    setButtonState(false);
+    // if (window.ethereum && window.ethereum.isMetaMask) {
+    //   window.ethereum
+    //     .request({ method: "eth_requestAccounts" })
+    //     .then((result) => {
+    //       setMetaAddress(result.at(0));
+    //       setButtonState(false);
+    //     })
+    //     .catch(() => {
+    //       throwError();
+    //     });
+    // } else {
+    //   setErrorMsg("Install MetaMask");
+    //   throwError();
+    // }
   };
 
   function signInTwitter() {
@@ -140,7 +141,7 @@ export const FormPage = () => {
   }
 
   const nextStep = () => {
-    if (activeStep === 3) {
+    if (activeStep === 2) {
       console.log("You are inside this step");
       firebase.saveDataIn(twitter, metaAddress, email);
       return;

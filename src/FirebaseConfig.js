@@ -46,7 +46,7 @@ class Firebase {
       data.metaAddress = metaAddress;
       data.email = email;
 
-      const q = query(collectionReference, where("username", "==", "null"));
+      const q = query(collectionReference, where("username", "==", data.username));
       const querySnapshot = await getDocs(q);
       if (querySnapshot.empty) {
         await addDoc(collection(db, "Users"), Object.assign({}, data));
