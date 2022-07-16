@@ -25,6 +25,11 @@
   margin-left: 12px;
 }
 
+.logoIcon {
+  height: 100px;
+  width: 250px;
+}
+
 .flexCont {
   display: flex;
   justify-content: space-between;

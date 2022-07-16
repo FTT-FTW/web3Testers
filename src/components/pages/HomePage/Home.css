@@ -13,7 +13,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 8px;
+  margin-top: 0px;
 }
 
 .testersTitle {
@@ -64,7 +64,7 @@ a {
     line-height: 60px;
   }
   .contentBody {
-    margin-top: 20%;
+    margin-top: 10%;
     margin-bottom: 10%;
   }
 
