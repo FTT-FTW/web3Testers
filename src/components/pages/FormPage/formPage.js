@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import "./formPage.css";
 import { FormContent } from "./formContent";
-import { ReactComponent as Logo } from "../../../assets/Logo.svg";
+import { ReactComponent as Web } from "../../../assets/Web.svg";
 import { ReactComponent as MetaMask } from "../../../assets/Metamask.svg";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import DoneOutlined from "@mui/icons-material/DoneOutlined";
@@ -31,7 +31,7 @@ export const FormPage = () => {
   const [twitter, setTwitter] = useState(false);
   const [isValidEmail, setValidEmail] = useState(false);
 
-  const content = "I have joined Waitlist for web3 testers to start earning by testing web3 products 🎉";
+  const content = `I have joined Waitlist for web3 testers to start earning by testing web3 products 🎉 you can also join at`;
   const firebase = useContext(BaseContext);
   const style = {
     position: "absolute",
@@ -92,10 +92,20 @@ export const FormPage = () => {
     return (
       <Button
         variant="outlined"
+        startIcon={
+          <img
+            className="connectedImage"
+            alt="connected"
+            src={require("../../../assets/connect.jpeg")}
+          />
+        }
         sx={{
           textTransform: "unset",
           color: "black",
-          backgroundColor: "white",
+          backgroundColor: "#d9e3d5",
+          borderRadius: "10px",
+          fontColor: "black",
+          border: "1px solid #61914e",
         }}
         disabled
       >
@@ -162,11 +172,7 @@ export const FormPage = () => {
           </FormContent>
         );
       case 3:
-        return (
-          <Typography variant="h5" sx={{ textAlign: "center" }}>
-            Response recorded !!
-          </Typography>
-        );
+        return <div className="formContent">{tweetButton()}</div>;
       default:
         return <></>;
     }
@@ -187,21 +193,21 @@ export const FormPage = () => {
     return (
       <Button
         variant="contained"
-        sx={{ width: "30%" }}
+        sx={{ width: "40%", fontSize: "10px" }}
         className="emailBox"
         onClick={nextStep}
-        href={`https://twitter.com/intent/tweet?text=${content}`}
+        href={`https://twitter.com/intent/tweet?text=${content}&url="https://web3testerz.netlify.app"`}
         target="_blank"
         rel="noopener noreferrer"
       >
-        Let's Tweet
+        Join waitlist succesfully
       </Button>
     );
   }
   return (
     <div className="container">
       <Link to="/">
-        <Logo className="logoIcon" />
+        <Web className="logoIcon" />
       </Link>
 
       <Modal
@@ -249,7 +255,7 @@ export const FormPage = () => {
               {renderContent()}
               <div className="formContent">
                 {activeStep === 3 ? (
-                  tweetButton()
+                  <></>
                 ) : (
                   <Button
                     variant="contained"

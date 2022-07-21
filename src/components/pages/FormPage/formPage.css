@@ -23,11 +23,7 @@
 .metaIcon {
   height: 20px;
   margin-left: 12px;
-}
-
-.logoIcon {
-  height: 100px;
-  width: 250px;
+  color: #61914e;
 }
 
 .flexCont {
@@ -44,6 +40,14 @@
 
 a {
   text-decoration: none;
+}
+
+.connectedImage {
+  height: 15px;
+}
+
+.Mui-disabled {
+  color: black !important;
 }
 @media screen and (max-width: 900px) {
   .card {

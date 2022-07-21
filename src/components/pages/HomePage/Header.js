@@ -2,14 +2,14 @@ import { Button } from "@mui/material";
 import "./Home.css";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { Link } from "react-router-dom";
-import {ReactComponent as Logo} from "../../../assets/Logo.svg"
+import { ReactComponent as Web } from "../../../assets/Web.svg";
 
 export const Header = () => {
   const matches = useMediaQuery("(min-width:900px)");
   return (
     <div className="headerContainer">
       <Link to="/">
-      <Logo className="logoIcon"/>
+        <Web className="logoIcon" />
       </Link>
       {matches && (
         <Link to="/waitlist">

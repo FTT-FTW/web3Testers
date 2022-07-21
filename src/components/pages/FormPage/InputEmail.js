@@ -7,10 +7,12 @@ export default function InputEmail(props) {
   const [isValid, setIsValid] = useState(false);
   const [dirty, setDirty] = useState(false);
 
+  const options = {
+    domain_specific_validation: true,
+  };
   const handleChange = (event) => {
     const val = event.target.value;
-
-    if (isEmail(val)) {
+    if (isEmail(val, options)) {
       setIsValid(true);
     } else {
       setIsValid(false);
