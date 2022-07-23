@@ -27,7 +27,7 @@ class Firebase {
       .signInWithPopup(provider)
       .then((user) => {
         twitterUserName = user.user.displayName;
-        alert("Twitter Connect Successful");
+        // alert("Twitter Connect Successful");
         twitterCallback();
       });
   };

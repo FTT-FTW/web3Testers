@@ -31,7 +31,9 @@ export const FormPage = () => {
   const [twitter, setTwitter] = useState(false);
   const [isValidEmail, setValidEmail] = useState(false);
 
-  const content = `I have joined Waitlist for web3 testers to start earning by testing web3 products 🎉 you can also join at`;
+  const content = `I joined @web3testers waitlist. 🥳 Excited to start my passive income journey by testing the web3 products.
+
+  Join here: https://web3testerz.netlify.app`;
   const firebase = useContext(BaseContext);
   const style = {
     position: "absolute",
@@ -63,7 +65,7 @@ export const FormPage = () => {
         .then((result) => {
           setMetaAddress(result[0]);
           setButtonState(false);
-          alert("MetaMask Connect Successful");
+          // alert("MetaMask Connect Successful");
         })
         .catch((err) => {
           alert(err);
@@ -88,17 +90,11 @@ export const FormPage = () => {
     setValidEmail(isValid);
   };
 
-  function renderConnected() {
+  function renderConnected(iconImg) {
     return (
       <Button
         variant="outlined"
-        startIcon={
-          <img
-            className="connectedImage"
-            alt="connected"
-            src={require("../../../assets/connect.jpeg")}
-          />
-        }
+        startIcon={iconImg}
         sx={{
           textTransform: "unset",
           color: "black",
@@ -123,7 +119,7 @@ export const FormPage = () => {
         return (
           <FormContent>
             {metaAddress ? (
-              renderConnected()
+              renderConnected(<MetaMask className="metaIcon" />)
             ) : (
               <Button
                 variant="outlined"
@@ -146,7 +142,7 @@ export const FormPage = () => {
         return (
           <FormContent>
             {twitter ? (
-              renderConnected()
+              renderConnected(<TwitterIcon className="twitterIcon" />)
             ) : (
               <Button
                 variant="outlined"
@@ -172,7 +168,14 @@ export const FormPage = () => {
           </FormContent>
         );
       case 3:
-        return <div className="formContent">{tweetButton()}</div>;
+        return (
+          <FormContent>
+            <Typography variant="h6" component="h6">
+              Hurray!! waitlist joined successfully🎉🎉
+            </Typography>
+          </FormContent>
+        );
+
       default:
         return <></>;
     }
@@ -193,14 +196,14 @@ export const FormPage = () => {
     return (
       <Button
         variant="contained"
-        sx={{ width: "40%", fontSize: "10px" }}
+        sx={{ width: "30%" }}
         className="emailBox"
         onClick={nextStep}
-        href={`https://twitter.com/intent/tweet?text=${content}&url="https://web3testerz.netlify.app"`}
+        href={`https://twitter.com/intent/tweet?text=${content}`}
         target="_blank"
         rel="noopener noreferrer"
       >
-        Join waitlist succesfully
+        Let's tweet
       </Button>
     );
   }
@@ -255,7 +258,7 @@ export const FormPage = () => {
               {renderContent()}
               <div className="formContent">
                 {activeStep === 3 ? (
-                  <></>
+                  tweetButton()
                 ) : (
                   <Button
                     variant="contained"

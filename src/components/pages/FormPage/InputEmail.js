@@ -36,6 +36,7 @@ export default function InputEmail(props) {
         id="outlined-basic"
         label="Email"
         type="email"
+        autoComplete="off"
         onChange={(e) => handleChange(e)}
       />
     </>
