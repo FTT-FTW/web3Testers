@@ -113,6 +113,37 @@ export const FormPage = () => {
     );
   }
 
+  function getButton(){
+    switch (activeStep) {
+      case 1:
+        return (
+          <Button
+            variant="contained"
+            sx={{ width: "30%" }}
+            className="emailBox"
+            onClick={nextStep}
+            disabled={!isValidEmail}
+          >
+            Next
+          </Button>);
+      case 2:
+        return tweetButton();
+      case 3:
+        return '';
+      default:
+        return (
+          <Button
+            variant="contained"
+            sx={{ width: "30%" }}
+            className="emailBox"
+            onClick={nextStep}
+            disabled={butttonState}
+          >
+            Next
+          </Button>);
+    }
+  }
+
   function renderContent() {
     switch (activeStep) {
       case 0:
@@ -141,6 +172,17 @@ export const FormPage = () => {
       case 1:
         return (
           <FormContent>
+            <InputEmail handleChange={handleEmailChange} />
+            <br></br>
+            <br></br>
+            <Typography fontSize={16}>
+              Please check your email for private discord invite
+            </Typography>
+          </FormContent>
+        );
+      case 2:
+        return (
+          <FormContent>
             {twitter ? (
               renderConnected(<TwitterIcon className="twitterIcon" />)
             ) : (
@@ -161,17 +203,11 @@ export const FormPage = () => {
             )}
           </FormContent>
         );
-      case 2:
-        return (
-          <FormContent>
-            <InputEmail handleChange={handleEmailChange} />
-          </FormContent>
-        );
       case 3:
         return (
           <FormContent>
             <Typography variant="h6" component="h6">
-              Hurray!! waitlist joined successfully🎉🎉
+              Hurray!!! Waitlist joined successfully🎉🎉
             </Typography>
           </FormContent>
         );
@@ -184,6 +220,9 @@ export const FormPage = () => {
   const nextStep = () => {
     if (activeStep === 2) {
       firebase.saveDataIn(metaAddress, email);
+      setTimeout(function() {
+        window.location = "/";
+      }, 5000);
     }
     if (activeStep === 3) {
       return;
@@ -196,14 +235,16 @@ export const FormPage = () => {
     return (
       <Button
         variant="contained"
-        sx={{ width: "30%" }}
+        sx={{ width: "45%" }}
         className="emailBox"
         onClick={nextStep}
         href={`https://twitter.com/intent/tweet?text=${content}`}
         target="_blank"
         rel="noopener noreferrer"
+        disabled={butttonState}
       >
-        Let's tweet
+        <TwitterIcon className="twitterIcon" />
+        &nbsp;&nbsp; Let's Tweet
       </Button>
     );
   }
@@ -257,19 +298,7 @@ export const FormPage = () => {
               </Stepper>
               {renderContent()}
               <div className="formContent">
-                {activeStep === 3 ? (
-                  tweetButton()
-                ) : (
-                  <Button
-                    variant="contained"
-                    sx={{ width: "30%" }}
-                    className="emailBox"
-                    onClick={nextStep}
-                    disabled={butttonState}
-                  >
-                    {activeStep === 2 ? "Submit" : "Next"}
-                  </Button>
-                )}
+                {getButton()}
               </div>
             </Stack>
           </CardContent>
