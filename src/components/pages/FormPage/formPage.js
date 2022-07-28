@@ -15,6 +15,7 @@ import './formPage.css';
 import { FormContent } from './formContent';
 import { ReactComponent as Web } from '../../../assets/Web.svg';
 import { ReactComponent as WalletConnect } from '../../../assets/WalletConnect.svg';
+import { ReactComponent as Metamask } from '../../../assets/Metamask.svg';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import DoneOutlined from '@mui/icons-material/DoneOutlined';
 import { Link } from 'react-router-dom';
@@ -127,11 +128,10 @@ export const FormPage = () => {
     setValidEmail(isValid);
   };
 
-  function renderConnected(iconImg) {
+  function renderConnected() {
     return (
       <Button
         variant="outlined"
-        startIcon={iconImg}
         sx={{
           textTransform: 'unset',
           color: 'black',
@@ -188,30 +188,48 @@ export const FormPage = () => {
       case 0:
         return (
           <div className="flexColumn">
+            <span className="connectWallet">Connect Wallet</span>
             {/* <span>{`Account: ${truncateAddress(metaAddress)}`}</span> */}
             <FormContent>
               {metaAddress ? (
-                renderConnected(
-                  <WalletConnect className="metaIcon" />
-                )
+                renderConnected()
               ) : (
-                <Button
-                  variant="outlined"
-                  sx={{
-                    textTransform: 'unset',
-                    color: 'black',
-                    backgroundColor: 'white',
-                  }}
-                  onClick={() => {
-                    connect(connectors.walletConnect);
-                    setProvider('walletConnect');
-                  }}
-                >
-                  <div className="flexCont">
-                    <WalletConnect className="metaIcon" />
-                    WalletConnect
-                  </div>
-                </Button>
+                <div className="wallet-buttons">
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      textTransform: 'unset',
+                      color: 'black',
+                      backgroundColor: 'white',
+                    }}
+                    onClick={() => {
+                      connect(connectors.walletConnect);
+                      setProvider('walletConnect');
+                    }}
+                  >
+                    <div className="flexCont">
+                      <WalletConnect className="metaIcon" />
+                      WalletConnect
+                    </div>
+                  </Button>
+                  <Button
+                    variant="outlined"
+                    sx={{
+                      textTransform: 'unset',
+                      color: 'black',
+                      backgroundColor: 'white',
+                    }}
+                    onClick={() => {
+                      connect(connectors.injected);
+                      setProvider('metamask');
+                    }}
+                  >
+                    <div className="flexCont">
+                      <Metamask className="metaIcon" />
+                      MetaMask
+                    </div>
+                  </Button>
+                </div>
               )}
             </FormContent>
           </div>

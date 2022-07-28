@@ -3,7 +3,7 @@ import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
 import { WalletLinkConnector } from '@web3-react/walletlink-connector';
 
 const injected = new InjectedConnector({
-  supportedChainIds: [1],
+  supportedChainIds: [1, 56],
 });
 
 //https://mainnet.infura.io/v3/35510359f7784e289951df662325c6ac
