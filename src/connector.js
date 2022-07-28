@@ -12,6 +12,16 @@ const walletconnect = new WalletConnectConnector({
   rpcUrl: `https://mainnet.infura.io/v3/${process.env.REACT_APP_INFURA_KEY}`,
   bridge: 'https://bridge.walletconnect.org',
   qrcode: true,
+  qrcodeModalOptions: {
+    mobileLinks: [
+      'rainbow',
+      'metamask',
+      'argent',
+      'trust',
+      'imtoken',
+      'pillar',
+    ],
+  },
 });
 
 const walletlink = new WalletLinkConnector({
