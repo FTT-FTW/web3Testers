@@ -33,6 +33,14 @@
   font-weight: 600;
 }
 
+.flexColumn {
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  align-self: center;
+  margin-top: 1rem;
+}
+
 .twitterIcon {
   margin-left: 12px;
   color: #00acee;

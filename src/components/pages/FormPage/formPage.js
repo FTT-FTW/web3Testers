@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect } from 'react';
 import {
   Card,
   CardContent,
@@ -10,22 +10,25 @@ import {
   Modal,
   Typography,
   Box,
-} from "@mui/material";
-import "./formPage.css";
-import { FormContent } from "./formContent";
-import { ReactComponent as Web } from "../../../assets/Web.svg";
-import { ReactComponent as MetaMask } from "../../../assets/Metamask.svg";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import DoneOutlined from "@mui/icons-material/DoneOutlined";
-import { Link } from "react-router-dom";
-import { BaseContext } from "../../../BaseContextProvider";
-import InputEmail from "./InputEmail";
+} from '@mui/material';
+import './formPage.css';
+import { FormContent } from './formContent';
+import { ReactComponent as Web } from '../../../assets/Web.svg';
+import { ReactComponent as WalletConnect } from '../../../assets/WalletConnect.svg';
+import TwitterIcon from '@mui/icons-material/Twitter';
+import DoneOutlined from '@mui/icons-material/DoneOutlined';
+import { Link } from 'react-router-dom';
+import { BaseContext } from '../../../BaseContextProvider';
+import InputEmail from './InputEmail';
+import { useWeb3React } from '@web3-react/core';
+import { connectors } from '../../../connector';
+import { toHex, truncateAddress } from '../../../utils';
 
 export const FormPage = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [open, setOpen] = React.useState(false);
   const [butttonState, setButtonState] = useState(true);
-  const [errorMsg, setErrorMsg] = useState("Something went wrong...");
+  const [errorMsg, setErrorMsg] = useState('Something went wrong...');
   const [metaAddress, setMetaAddress] = useState(null);
   const [email, setEmail] = useState(null);
   const [twitter, setTwitter] = useState(false);
@@ -36,13 +39,13 @@ export const FormPage = () => {
   Join here: https://web3tester.xyz`;
   const firebase = useContext(BaseContext);
   const style = {
-    position: "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
     width: 400,
-    bgcolor: "#302f2f",
-    border: "2px solid #000",
+    bgcolor: '#302f2f',
+    border: '2px solid #000',
     boxShadow: 24,
     p: 4,
   };
@@ -61,7 +64,7 @@ export const FormPage = () => {
   const metaConnect = () => {
     if (window.ethereum && window.ethereum.isMetaMask) {
       window.ethereum
-        .request({ method: "eth_requestAccounts" })
+        .request({ method: 'eth_requestAccounts' })
         .then((result) => {
           setMetaAddress(result[0]);
           setButtonState(false);
@@ -71,10 +74,44 @@ export const FormPage = () => {
           alert(err);
         });
     } else {
-      setErrorMsg("Install MetaMask");
+      setErrorMsg('Install MetaMask');
       throwError();
     }
   };
+
+  const { activate, account } = useWeb3React();
+
+  const setProvider = (type) => {
+    window.localStorage.setItem('provider', type);
+  };
+
+  const connect = async (injector) => {
+    try {
+      await activate(injector, undefined, true);
+      localStorage.setItem('isWalletConnected', true);
+      setMetaAddress(account);
+      setButtonState(false);
+    } catch (ex) {
+      console.log(ex);
+    }
+  };
+
+  /* useEffect(() => {
+    const connectWalletOnPageLoad = async () => {
+      if (localStorage?.getItem('isWalletConnected') === 'true') {
+        try {
+          await activate(connectors.walletConnect, undefined, true);
+          localStorage.setItem('isWalletConnected', true);
+          console.log(account);
+          setMetaAddress(account);
+          setButtonState(false);
+        } catch (ex) {
+          console.log(ex);
+        }
+      }
+    };
+    connectWalletOnPageLoad();
+  }, []); */
 
   const twitterCallback = () => {
     setTwitter(true);
@@ -96,12 +133,12 @@ export const FormPage = () => {
         variant="outlined"
         startIcon={iconImg}
         sx={{
-          textTransform: "unset",
-          color: "black",
-          backgroundColor: "#d9e3d5",
-          borderRadius: "10px",
-          fontColor: "black",
-          border: "1px solid #61914e",
+          textTransform: 'unset',
+          color: 'black',
+          backgroundColor: '#d9e3d5',
+          borderRadius: '10px',
+          fontColor: 'black',
+          border: '1px solid #61914e',
         }}
         disabled
       >
@@ -113,19 +150,20 @@ export const FormPage = () => {
     );
   }
 
-  function getButton(){
+  function getButton() {
     switch (activeStep) {
       case 1:
         return (
           <Button
             variant="contained"
-            sx={{ width: "30%" }}
+            sx={{ width: '30%' }}
             className="emailBox"
             onClick={nextStep}
             disabled={!isValidEmail}
           >
             Next
-          </Button>);
+          </Button>
+        );
       case 2:
         return tweetButton();
       case 3:
@@ -134,13 +172,14 @@ export const FormPage = () => {
         return (
           <Button
             variant="contained"
-            sx={{ width: "30%" }}
+            sx={{ width: '30%' }}
             className="emailBox"
             onClick={nextStep}
             disabled={butttonState}
           >
             Next
-          </Button>);
+          </Button>
+        );
     }
   }
 
@@ -148,26 +187,34 @@ export const FormPage = () => {
     switch (activeStep) {
       case 0:
         return (
-          <FormContent>
-            {metaAddress ? (
-              renderConnected(<MetaMask className="metaIcon" />)
-            ) : (
-              <Button
-                variant="outlined"
-                sx={{
-                  textTransform: "unset",
-                  color: "black",
-                  backgroundColor: "white",
-                }}
-                onClick={metaConnect}
-              >
-                <div className="flexCont">
-                  Connect Wallet
-                  <MetaMask className="metaIcon" />
-                </div>
-              </Button>
-            )}
-          </FormContent>
+          <div className="flexColumn">
+            {/* <span>{`Account: ${truncateAddress(metaAddress)}`}</span> */}
+            <FormContent>
+              {metaAddress ? (
+                renderConnected(
+                  <WalletConnect className="metaIcon" />
+                )
+              ) : (
+                <Button
+                  variant="outlined"
+                  sx={{
+                    textTransform: 'unset',
+                    color: 'black',
+                    backgroundColor: 'white',
+                  }}
+                  onClick={() => {
+                    connect(connectors.walletConnect);
+                    setProvider('walletConnect');
+                  }}
+                >
+                  <div className="flexCont">
+                    <WalletConnect className="metaIcon" />
+                    WalletConnect
+                  </div>
+                </Button>
+              )}
+            </FormContent>
+          </div>
         );
       case 1:
         return (
@@ -189,9 +236,9 @@ export const FormPage = () => {
               <Button
                 variant="outlined"
                 sx={{
-                  textTransform: "unset",
-                  color: "black",
-                  backgroundColor: "white",
+                  textTransform: 'unset',
+                  color: 'black',
+                  backgroundColor: 'white',
                 }}
                 onClick={signInTwitter}
               >
@@ -220,8 +267,8 @@ export const FormPage = () => {
   const nextStep = () => {
     if (activeStep === 2) {
       firebase.saveDataIn(metaAddress, email);
-      setTimeout(function() {
-        window.location = "/";
+      setTimeout(function () {
+        window.location = '/';
       }, 5000);
     }
     if (activeStep === 3) {
@@ -235,7 +282,7 @@ export const FormPage = () => {
     return (
       <Button
         variant="contained"
-        sx={{ width: "45%" }}
+        sx={{ width: '45%' }}
         className="emailBox"
         onClick={nextStep}
         href={`https://twitter.com/intent/tweet?text=${content}`}
@@ -262,7 +309,7 @@ export const FormPage = () => {
       >
         <Box sx={style}>
           <Typography
-            sx={{ color: "white" }}
+            sx={{ color: 'white' }}
             id="modal-modal-title"
             variant="h6"
             component="h2"
@@ -273,12 +320,14 @@ export const FormPage = () => {
       </Modal>
       <div className="waitlistContainer">
         <Card
-          sx={{ backgroundColor: "rgba(0, 145, 255, 0.11)" }}
+          sx={{ backgroundColor: 'rgba(0, 145, 255, 0.11)' }}
           className="card"
           variant="outlined"
         >
-          <CardContent sx={{ height: "100%" }}>
-            <Stack sx={{ justifyContent: "space-between", height: "100%" }}>
+          <CardContent sx={{ height: '100%' }}>
+            <Stack
+              sx={{ justifyContent: 'space-between', height: '100%' }}
+            >
               <Stepper activeStep={activeStep}>
                 <Step>
                   <StepLabel>
@@ -297,9 +346,7 @@ export const FormPage = () => {
                 </Step>
               </Stepper>
               {renderContent()}
-              <div className="formContent">
-                {getButton()}
-              </div>
+              <div className="formContent">{getButton()}</div>
             </Stack>
           </CardContent>
         </Card>
