@@ -35,9 +35,9 @@ export const FormPage = () => {
   const [twitter, setTwitter] = useState(false);
   const [isValidEmail, setValidEmail] = useState(false);
 
-  const content = `I joined @web3testers waitlist. 🥳 Excited to start my passive income journey by testing the web3 products.
-
-  Join here: https://web3tester.xyz`;
+  const content = `I joined @webthreetester waitlist. 🥳 Excited to start my passive income journey by testing the web3 products.  
+  
+  Join me here: https://www.web3tester.xyz`;
   const firebase = useContext(BaseContext);
   const style = {
     position: 'absolute',
