@@ -117,6 +117,7 @@ export const FormPage = () => {
   const twitterCallback = () => {
     setTwitter(true);
     setButtonState(false);
+    firebase.saveDataIn(account, email);
   };
 
   function signInTwitter() {
@@ -126,6 +127,19 @@ export const FormPage = () => {
   const handleEmailChange = (value, isValid) => {
     setEmail(value);
     setValidEmail(isValid);
+  };
+
+  const nextStep = () => {
+    if (activeStep === 2) {
+      setTimeout(function () {
+        window.location = '/';
+      }, 5000);
+    }
+    if (activeStep === 3) {
+      return;
+    }
+    setActiveStep(activeStep + 1);
+    setButtonState(true);
   };
 
   function renderConnected() {
@@ -305,20 +319,6 @@ export const FormPage = () => {
         return <></>;
     }
   }
-
-  const nextStep = () => {
-    if (activeStep === 2) {
-      firebase.saveDataIn(metaAddress, email);
-      setTimeout(function () {
-        window.location = '/';
-      }, 5000);
-    }
-    if (activeStep === 3) {
-      return;
-    }
-    setActiveStep(activeStep + 1);
-    setButtonState(true);
-  };
 
   function tweetButton() {
     return (
