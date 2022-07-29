@@ -23,7 +23,6 @@ import { BaseContext } from '../../../BaseContextProvider';
 import InputEmail from './InputEmail';
 import { useWeb3React } from '@web3-react/core';
 import { connectors } from '../../../connector';
-import { toHex, truncateAddress } from '../../../utils';
 
 export const FormPage = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -87,6 +86,7 @@ export const FormPage = () => {
   };
 
   const connect = async (injector) => {
+    console.log(injector);
     try {
       await activate(injector, undefined, true);
       localStorage.setItem('isWalletConnected', true);
@@ -150,6 +150,30 @@ export const FormPage = () => {
     );
   }
 
+  /*  useEffect(() => {
+    async function connectOnLoad() {
+      const provider = await window.localStorage.getItem('provider');
+      const isWalletConnected = await window.localStorage.getItem(
+        'isWalletConnected'
+      );
+      console.log(provider);
+      console.log(isWalletConnected);
+      let injector = null;
+      if (isWalletConnected === true) {
+        console.log('inside');
+        injector = connectors.injected;
+      }
+      if (
+        provider === 'walletConnect' &&
+        isWalletConnected === true
+      ) {
+        injector = connectors.walletConnect;
+      }
+      await connect(injector);
+    }
+    connectOnLoad();
+  }, []); */
+
   function getButton() {
     switch (activeStep) {
       case 1:
@@ -191,7 +215,7 @@ export const FormPage = () => {
             <span className="connectWallet">Connect Wallet</span>
             {/* <span>{`Account: ${truncateAddress(metaAddress)}`}</span> */}
             <FormContent>
-              {metaAddress ? (
+              {account ? (
                 renderConnected()
               ) : (
                 <div className="wallet-buttons">
