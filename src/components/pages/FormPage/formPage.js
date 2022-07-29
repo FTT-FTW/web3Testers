@@ -233,7 +233,7 @@ export const FormPage = () => {
                   >
                     <div className="flexCont">
                       <WalletConnect className="metaIcon" />
-                      WalletConnect
+                      &nbsp;&nbsp;WalletConnect
                     </div>
                   </Button>
                   <Button
@@ -250,7 +250,7 @@ export const FormPage = () => {
                   >
                     <div className="flexCont">
                       <Metamask className="metaIcon" />
-                      MetaMask
+                      &nbsp;&nbsp;MetaMask
                     </div>
                   </Button>
                 </div>
@@ -324,8 +324,6 @@ export const FormPage = () => {
     return (
       <Button
         variant="contained"
-        sx={{ width: '45%' }}
-        className="emailBox"
         onClick={nextStep}
         href={`https://twitter.com/intent/tweet?text=${content}`}
         target="_blank"
