@@ -241,15 +241,16 @@ export const FormPage = () => {
                       backgroundColor: 'white',
                     }}
                     onClick={() => {
-                      connect(connectors.walletConnect);
-                      setProvider('walletConnect');
+                      connect(connectors.injected);
+                      setProvider('metamask');
                     }}
                   >
                     <div className="flexCont">
-                      <WalletConnect className="metaIcon" />
-                      &nbsp;&nbsp;WalletConnect
+                      <Metamask className="metaIcon" />
+                      &nbsp;&nbsp;MetaMask
                     </div>
                   </Button>
+
                   <Button
                     variant="outlined"
                     sx={{
@@ -258,13 +259,13 @@ export const FormPage = () => {
                       backgroundColor: 'white',
                     }}
                     onClick={() => {
-                      connect(connectors.injected);
-                      setProvider('metamask');
+                      connect(connectors.walletConnect);
+                      setProvider('walletConnect');
                     }}
                   >
                     <div className="flexCont">
-                      <Metamask className="metaIcon" />
-                      &nbsp;&nbsp;MetaMask
+                      <WalletConnect className="metaIcon" />
+                      &nbsp;&nbsp;WalletConnect
                     </div>
                   </Button>
                 </div>
